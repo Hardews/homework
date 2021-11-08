@@ -1,4 +1,4 @@
-package  main
+package main
 
 import "fmt"
 
@@ -13,9 +13,9 @@ func main()  {
 		name: "earth",
 		diameter: 12742,
 		age: 20000,
-	    }
-		fmt.Println(earth)
-	    earth.age +=1
-		fmt.Println(earth.age)
+	}
+	fmt.Println(earth)
+	earth.age +=1
+	fmt.Println(earth.age)
 
 }
