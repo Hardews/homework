@@ -18,7 +18,7 @@ func main()  {
 	 var user Users
 	 var usersData map[string]string
 	 usersData = make(map[string]string)
-	 fileName := "D:/GOProjects/src/homework_in_redrock/Four/lv3/usersData.txt"
+	 fileName := "D:/GOProjects/src/homework_at_redrock/Four/lv3/usersData.txt"
 	 file,err := os.OpenFile(fileName,os.O_RDWR,0)
 	 if err!= nil{
 		 fmt.Println("err:",err)
@@ -76,13 +76,12 @@ func main()  {
 func registered(usersData map[string]string)  {
      var name string
 	 var cipher string
-	 var t bool
+	 var t = true
 	 for{
 		 fmt.Println("请输入用户名")
 		 fmt.Scan(&name)
 		 for i,_ := range usersData{
-			 a := bytes.EqualFold([]byte(i),[]byte(name))
-			 if t == a {
+			 if t == bytes.EqualFold([]byte(i),[]byte(name)){
 				 fmt.Println("用户名已存在，请重新输入！")
 				 continue
 			 }else{
@@ -111,7 +110,7 @@ func registered(usersData map[string]string)  {
 	 fmt.Println("注册成功！")
 }
 func change(data map[string]string)  {
-	 fileName := "D:/GOProjects/src/homework_in_redrock/Four/lv3/usersData.txt"
+	 fileName := "D:/GOProjects/src/homework_at_redrock/Four/lv3/usersData.txt"
 	 var userName string
 	 var userCipher string
 	 fmt.Println("请输入用户名")
@@ -168,7 +167,7 @@ func change(data map[string]string)  {
 }
 func writeIn(User string,cipher string,data map[string]string)  {
 	data[cipher] = User
-	fileName := "D:/GOProjects/src/homework_in_redrock/Four/lv3/usersData.txt"
+	fileName := "D:/GOProjects/src/homework_at_redrock/Four/lv3/usersData.txt"
 	file,err := os.OpenFile(fileName,os.O_WRONLY|os.O_APPEND,0)
 	if err!= nil{
 		fmt.Println("err：",err)
