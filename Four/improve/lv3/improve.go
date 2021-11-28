@@ -8,6 +8,12 @@ import (
 	"time"
 )
 
+/*
+这个登陆注册这个，怎么写json我还是不太懂，还有读我也是有点懵
+所以这个算是不好的代码，但我以后会改的
+我再学学...
+*/
+
 func main()  {
 	readUsersData()
 	menu()
@@ -22,7 +28,7 @@ var dataMap = make(map[string]users)
 
 func readUsersData() map[string]users{
 	var usersData users
-	fileName := "D:/GOProjects/src/homework_at_redrock/Four/lv3/improve/Data.txt"
+	fileName := "D:/GOProjects/src/homework_at_redrock/Four/improve/lv3/Data.txt"
 	file1,err := os.OpenFile(fileName,os.O_RDONLY,os.ModePerm)
 	if err!=nil{
 		fmt.Println("err1:",err)
@@ -33,7 +39,6 @@ func readUsersData() map[string]users{
 		usersData.usersName,_= data.ReadString(' ')
 		usersData.password, err = data.ReadString('|')
 		dataMap[usersData.usersName] = usersData
-		fmt.Println(dataMap[usersData.usersName])
 		if err == io.EOF {
 			break
 		}
@@ -132,7 +137,7 @@ func writeIn(user,password string)  {
 	var usersData users
 	usersData.usersName = user
 	usersData.password  = password
-	fileName := "D:/GOProjects/src/homework_at_redrock/Four/lv3/improve/Data.txt"
+	fileName := "D:/GOProjects/src/homework_at_redrock/Four/improve/lv3/Data.txt"
 	file,err := os.OpenFile(fileName,os.O_RDWR|os.O_APPEND,os.ModePerm)
 	if err!=nil{
 		fmt.Println("err:",err)
