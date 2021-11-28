@@ -41,7 +41,7 @@ func clock3(t time.Time)  {
 		}
 	}
 }
-func remindTime(t time.Time)  {  //闹钟准备好时提醒现在的时间
+func remindTime(t time.Time)  {  //准备好时提醒现在的时间
 	s2 := t.Format("2006年1月2日 15时04分05秒")
 	if t.Hour() == 6 {
 		if t.Minute()==0 {

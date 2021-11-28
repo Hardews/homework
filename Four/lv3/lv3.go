@@ -18,8 +18,8 @@ func main()  {
 	 var user Users
 	 var usersData map[string]string
 	 usersData = make(map[string]string)
-	 fileName := "D:/GOProjects/src/homework_at_redrock/Four/lv3/usersData.txt"
-	 file,err := os.OpenFile(fileName,os.O_RDWR,0)
+	 fileName := "D:/GOProjects/src/homework_at_redrock/Four/lv3/users.data"
+	 file,err := os.OpenFile(fileName,os.O_CREATE|os.O_RDWR,os.ModeAppend|os.ModePerm)
 	 if err!= nil{
 		 fmt.Println("err:",err)
 		 return
