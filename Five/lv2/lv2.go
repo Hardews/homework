@@ -7,13 +7,10 @@ import (
 	"io"
 	"os"
 )
-var engine = gin.Default()
-var userOperation = engine.Group("/user")
 
 func main()  {
 	menu()
 }
-
 
 type users struct {
 	usersName string
@@ -24,7 +21,7 @@ var dataMap = make(map[string]users)
 
 func readUsersData() map[string]users{
 	var usersData users
-	fileName := "D:/GOProjects/src/homework_at_redrock/Five/lv3/Data.txt"
+	fileName := "D:/GOProjects/src/homework_at_redrock/Five/lv2/Data.txt"
 	file1,err := os.OpenFile(fileName,os.O_RDONLY,os.ModePerm)
 	if err!=nil{
 		fmt.Println("err1:",err)
@@ -43,6 +40,8 @@ func readUsersData() map[string]users{
 }
 
 func menu()  {
+	var engine = gin.Default()
+	var userOperation = engine.Group("/user")
 	fmt.Println("-----主菜单-----")
 	fmt.Println("请选择您的操作")
 	fmt.Printf("1.登录\n2.注册\n3.退出\n")
@@ -50,19 +49,20 @@ func menu()  {
 	fmt.Scan(&chose)
 	switch chose {
 	case 1:
-		login()
+		userOperation.GET("/login",Login)
 	case 2:
-		register()
+		userOperation.POST("/register", Register)
 	case 3:
 		return
 	}
+	engine.Run()
+
 }
 
-func login()  {
-	var user users
-	readUsersData()
-		fmt.Println("-----登陆页面-----")
-	userOperation.GET("/login", func(c *gin.Context) {
+func Login(c *gin.Context)  {
+	    var user users
+	    readUsersData()
+	    c.Writer.Write([]byte("-----登陆页面----- \n" ))
 		user.usersName = c.Query("username")
 		user.password  = c.Query("password")
 		user.usersName = user.usersName + " "
@@ -72,14 +72,11 @@ func login()  {
 		}else {
 			c.Writer.Write([]byte(user.usersName + "登录失败"))
 		}
-	})
-	engine.Run()
 }
 
-func register()  {
-	readUsersData()
-	fmt.Println("-----注册页面-----")
-	userOperation.POST("/register", func(c *gin.Context) {
+func Register(c *gin.Context)  {
+		readUsersData()
+		c.Writer.Write([]byte("-----注册页面-----\n"))
 		var username = c.PostForm("username")
 		var password = c.PostForm("password")
 		_,ok := dataMap[username + " "]
@@ -91,15 +88,13 @@ func register()  {
 			writeIn(username,password)
 			c.Writer.Write([]byte(username + "注册成功"))
 		}
-		})
-		engine.Run()
 }
 
 func writeIn(user,password string)  {
 	var usersData users
 	usersData.usersName = user
 	usersData.password  = password
-	fileName := "D:/GOProjects/src/homework_at_redrock/Five/lv3/Data.txt"
+	fileName := "D:/GOProjects/src/homework_at_redrock/Five/lv2/Data.txt"
 	file,err := os.OpenFile(fileName,os.O_RDWR|os.O_APPEND,os.ModePerm)
 	if err!=nil{
 		fmt.Println("err:",err)
